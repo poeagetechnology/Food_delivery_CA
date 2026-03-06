@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "991589986641",
+    "project_id": "food-delivery-94ac6",
+    "storage_bucket": "food-delivery-94ac6.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:991589986641:android:cfae266dbf10bc8fa12370",
+        "android_client_info": {
+          "package_name": "com.example.delivery_partner_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "991589986641-ko35dlni307vvhcf98nqb6olfg0ga7k8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAgZVvj6k-8bPpjr6BtEBeS1cLpI_Gs0uo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "991589986641-ko35dlni307vvhcf98nqb6olfg0ga7k8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:991589986641:android:c0a84d1199c4cb8ea12370",
+        "android_client_info": {
+          "package_name": "com.poeage.customer_mobile_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "991589986641-ko35dlni307vvhcf98nqb6olfg0ga7k8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAgZVvj6k-8bPpjr6BtEBeS1cLpI_Gs0uo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "991589986641-ko35dlni307vvhcf98nqb6olfg0ga7k8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
