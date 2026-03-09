@@ -13,12 +13,27 @@ dependencies:
   firebase_core: ^4.4.0
   firebase_auth: ^6.1.4
   cloud_firestore: ^6.1.2
-
-
-
   google_fonts: ^6.2.1
   cupertino_icons: ^1.0.8
   smooth_page_indicator: ^1.1.0
+  
+  # Data Models & Entities
+  equatable: ^2.0.5
+  
+  # Functional Programming
+  dartz: ^0.10.1
+  
+  # Localization & Formatting
+  intl: ^0.18.1
+  
+  # Image Handling
+  image_picker: ^0.9.7
+  
+  # Local Storage
+  shared_preferences: ^2.1.0
+  
+  # Location Services
+  geolocator: ^9.0.2
 
 dev_dependencies:
   flutter_test:
