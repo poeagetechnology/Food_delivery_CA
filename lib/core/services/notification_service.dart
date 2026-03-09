@@ -1,5 +1,6 @@
 /// Firebase Cloud Messaging Service
 /// Handles push notifications
+library;
 
 class NotificationService {
   static final NotificationService _instance = NotificationService._internal();

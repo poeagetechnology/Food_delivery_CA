@@ -7,10 +7,10 @@ class CustomNavigationBar extends StatelessWidget {
   final ValueChanged<int> onItemSelected;
 
   const CustomNavigationBar({
-    Key? key,
+    super.key,
     required this.selectedIndex,
     required this.onItemSelected,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -13,7 +13,7 @@ class CustomTextField extends StatefulWidget {
   final Widget? suffixIcon;
 
   const CustomTextField({
-    Key? key,
+    super.key,
     required this.label,
     this.hintText,
     required this.controller,
@@ -24,7 +24,7 @@ class CustomTextField extends StatefulWidget {
     this.minLines = 1,
     this.prefixIcon,
     this.suffixIcon,
-  }) : super(key: key);
+  });
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();

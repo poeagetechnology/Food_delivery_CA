@@ -1,5 +1,6 @@
 /// API Configuration
 /// Manages all API endpoints and configurations
+library;
 
 class ApiConfig {
   static const String baseUrl = 'https://api.fooddelivery.com';
