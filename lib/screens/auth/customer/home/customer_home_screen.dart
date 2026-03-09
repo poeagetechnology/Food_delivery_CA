@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'food_detail_screen.dart';
-import 'widgets/banner_carousel.dart';
-import 'widgets/restaurant_card.dart';
-import 'widgets/category_filter.dart';
 import '../search/search_screen.dart';
 class CustomerHomeScreen extends StatefulWidget {
   const CustomerHomeScreen({super.key});

@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'customer_otp_screen.dart';
 import 'home/customer_home_screen.dart'; // Temporary (later change to CustomerMainScreen)

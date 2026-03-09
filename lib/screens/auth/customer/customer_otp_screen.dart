@@ -1,5 +1,7 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
-import 'home/customer_home_screen.dart'; // Later change to CustomerMainScreen
+// Later change to CustomerMainScreen
 
 class CustomerOtpScreen extends StatefulWidget {
   final String phoneNumber;
@@ -33,9 +35,8 @@ class _CustomerOtpScreenState extends State<CustomerOtpScreen> {
     setState(() => isLoading = false);
 
     if (otpController.text == widget.generatedOtp) {
-      // ✅ Go back to login screen and return success
-      Navigator.pop(context, true);
-    } else {
+    
+     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Invalid OTP")),
       );
