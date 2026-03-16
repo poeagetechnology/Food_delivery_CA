@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'food_detail_screen.dart';
-import 'widgets/banner_carousel.dart';
-import 'widgets/restaurant_card.dart';
-import 'widgets/category_filter.dart';
+import '../restaurant_detail/restaurant_detail_screen.dart';
 import '../search/search_screen.dart';
+import 'food_detail_screen.dart';
+
 class CustomerHomeScreen extends StatefulWidget {
   const CustomerHomeScreen({super.key});
 
@@ -15,6 +14,7 @@ class CustomerHomeScreen extends StatefulWidget {
 class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
 
   int _currentIndex = 0;
+  bool showFoods = true;
 
   /// FOOD SLIDER IMAGES
   final List<String> banners = [
@@ -69,13 +69,21 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
 
     final List<Widget> pages = [
       _homeContent(),
-      const SearchScreen(),
+      SearchScreen(
+        goToHome: () {
+          setState(() {
+            _currentIndex = 0;
+          });
+        },
+      ),
       const Center(child: Text("Cart Screen")),
       const Center(child: Text("Orders Screen")),
       const Center(child: Text("Profile Screen")),
     ];
+
     return Scaffold(
       backgroundColor: const Color(0xffF6F6F6),
+
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -88,17 +96,18 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
         ),
         actions: _currentIndex == 0
             ? [
-          Padding(
-            padding: const EdgeInsets.only(right: 15),
+          const Padding(
+            padding: EdgeInsets.only(right: 15),
             child: CircleAvatar(
-              backgroundImage:
-              const AssetImage("assets/images/profile.jpg"),
+              backgroundImage: AssetImage("assets/images/profile.jpg"),
             ),
           )
         ]
             : [],
       ),
+
       body: pages[_currentIndex],
+
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         type: BottomNavigationBarType.fixed,
@@ -110,16 +119,11 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
           });
         },
         items: const [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.home), label: "Home"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.search), label: "Search"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_cart), label: "Cart"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.receipt_long), label: "Orders"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.person), label: "Profile"),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+          BottomNavigationBarItem(icon: Icon(Icons.search), label: "Search"),
+          BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), label: "Cart"),
+          BottomNavigationBarItem(icon: Icon(Icons.receipt_long), label: "Orders"),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
         ],
       ),
     );
@@ -169,7 +173,6 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
 
           const SizedBox(height: 20),
 
-
           /// FOOD SLIDER
           SizedBox(
             height: 120,
@@ -194,195 +197,217 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
 
           const SizedBox(height: 25),
 
-          /// POPULAR FOODS
-          Text(
-            "Popular Foods",
-            style: GoogleFonts.poppins(
-                fontSize: 18,
-                fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 15),
+          /// TOGGLE BUTTONS
+          Row(
+            children: [
 
-          GridView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: popularFoods.length,
-            gridDelegate:
-            const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              mainAxisSpacing: 15,
-              crossAxisSpacing: 15,
-              childAspectRatio: 0.75,
-            ),
-            itemBuilder: (context, index) {
-
-              final food = popularFoods[index];
-
-              return GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => FoodDetailScreen(
-                        name: food["name"],
-                        price: food["price"],
-                        rating: food["rating"],
-                        image: food["image"],
-                      ),
-                    ),
-                  );
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-
-                      ClipRRect(
-                        borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
-                        child: Image.asset(
-                          food["image"],
-                          height: 120,
-                          width: double.infinity,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-
-                      Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-
-                            Text(food["name"],
-                                style: GoogleFonts.poppins(fontWeight: FontWeight.w600)),
-                            Text(food["price"],
-                                style: const TextStyle(color: Colors.orange, fontWeight: FontWeight.bold)),
-
-                            Row(
-                              children: [
-                                const Icon(Icons.star, color: Colors.orange, size: 16),
-                                Text(food["rating"]),
-                              ],
-                            )
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              );
-            },
-          ),
-
-          const SizedBox(height: 25),
-
-          /// NEARBY RESTAURANTS
-          Text(
-            "Nearby Restaurants",
-            style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 15),
-
-          SizedBox(
-            height: 150,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: restaurants.length,
-              itemBuilder: (context, index) {
-                final restaurant = restaurants[index];
-
-                return GestureDetector(
+              Expanded(
+                child: GestureDetector(
                   onTap: () {
-                    // Navigate to Restaurant menu screen
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => RestaurantFoodScreen(
-                          restaurantName: restaurant["name"]!,
-                          restaurantImage: restaurant["image"]!,
-                        ),
-                      ),
-                    );
+                    setState(() {
+                      showFoods = true;
+                    });
                   },
                   child: Container(
-                    width: 200,
-                    margin: const EdgeInsets.only(right: 15),
+                    padding: const EdgeInsets.symmetric(vertical: 12),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      image: DecorationImage(
-                        image: AssetImage(restaurant["image"]!),
-                        fit: BoxFit.cover,
-                      ),
+                      color: showFoods ? Colors.orange : Colors.white,
+                      borderRadius: BorderRadius.circular(25),
                     ),
-                    alignment: Alignment.bottomLeft,
-                    padding: const EdgeInsets.all(10),
-                    child: Container(
-                      color: Colors.black54,
-                      padding: const EdgeInsets.all(5),
+                    child: Center(
                       child: Text(
-                        restaurant["name"]!,
-                        style: const TextStyle(color: Colors.white),
+                        "Foods",
+                        style: TextStyle(
+                          color: showFoods ? Colors.white : Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),
-                );
-              },
-            ),
+                ),
+              ),
+
+              const SizedBox(width: 10),
+
+              Expanded(
+                child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      showFoods = false;
+                    });
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    decoration: BoxDecoration(
+                      color: !showFoods ? Colors.orange : Colors.white,
+                      borderRadius: BorderRadius.circular(25),
+                    ),
+                    child: Center(
+                      child: Text(
+                        "Restaurants",
+                        style: TextStyle(
+                          color: !showFoods ? Colors.white : Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
+
+          const SizedBox(height: 20),
+
+          showFoods ? _foodsSection() : _restaurantsSection(),
         ],
       ),
     );
   }
-}
 
-/// ================= NEW SCREEN FOR RESTAURANT MENU =================
-class RestaurantFoodScreen extends StatelessWidget {
-  final String restaurantName;
-  final String restaurantImage;
-
-  const RestaurantFoodScreen({
-    super.key,
-    required this.restaurantName,
-    required this.restaurantImage,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    // Sample foods for the restaurant
-    final foods = [
-      {"name": "Special Meal", "price": "₹150", "image": "assets/images/meals.jpg"},
-      {"name": "Cold Drink", "price": "₹50", "image": "assets/images/cold.jpg"},
-      {"name": "Dessert", "price": "₹80", "image": "assets/images/cakess.png"},
-    ];
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(restaurantName),
+  /// FOODS GRID
+  Widget _foodsSection() {
+    return GridView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: popularFoods.length,
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        mainAxisSpacing: 15,
+        crossAxisSpacing: 15,
+        childAspectRatio: 0.75,
       ),
-      body: ListView.builder(
-        itemCount: foods.length,
-        itemBuilder: (context, index) {
-          final food = foods[index];
-          return ListTile(
-            leading: Image.asset(food["image"]!, width: 50, height: 50, fit: BoxFit.cover),
-            title: Text(food["name"]!),
-            subtitle: Text(food["price"]!),
-            trailing: ElevatedButton(
-              onPressed: () {
-                // Add to Cart logic
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text("${food["name"]} added to cart!")),
-                );
-              },
-              child: const Text("Add"),
+      itemBuilder: (context, index) {
+
+        final food = popularFoods[index];
+
+        return GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => FoodDetailScreen(
+                  name: food["name"],
+                  price: food["price"],
+                  rating: food["rating"],
+                  image: food["image"],
+                ),
+              ),
+            );
+          },
+
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20),
             ),
-          );
-        },
+
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+
+                ClipRRect(
+                  borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+                  child: Image.asset(
+                    food["image"],
+                    height: 120,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+
+                      Text(food["name"],
+                          style: GoogleFonts.poppins(fontWeight: FontWeight.w600)),
+
+                      Text(food["price"],
+                          style: const TextStyle(color: Colors.orange, fontWeight: FontWeight.bold)),
+
+                      Row(
+                        children: [
+                          const Icon(Icons.star, color: Colors.orange, size: 16),
+                          Text(food["rating"]),
+                        ],
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  /// RESTAURANT GRID
+  Widget _restaurantsSection() {
+    return GridView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: restaurants.length,
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        mainAxisSpacing: 15,
+        crossAxisSpacing: 15,
+        childAspectRatio: 0.85,
       ),
+      itemBuilder: (context, index) {
+
+        final restaurant = restaurants[index];
+
+        return GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => RestaurantDetailScreen(
+                  restaurantName: restaurant["name"]!,
+                  restaurantImage: restaurant["image"]!,
+                ),
+              ),
+            );
+          },
+
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20),
+            ),
+
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+
+                ClipRRect(
+                  borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+                  child: Image.asset(
+                    restaurant["image"]!,
+                    height: 120,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Text(
+                    restaurant["name"]!,
+                    style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }

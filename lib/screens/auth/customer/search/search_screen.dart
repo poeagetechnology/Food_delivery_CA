@@ -1,79 +1,44 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'search_controller.dart';
+import 'widgets/search_bar.dart';
+import 'widgets/filter_chips.dart';
+import 'widgets/search_results.dart';
 
-class SearchScreen extends StatefulWidget {
-  const SearchScreen({super.key});
-
-  @override
-  State<SearchScreen> createState() => _SearchScreenState();
-}
-
-class _SearchScreenState extends State<SearchScreen> {
-
-  final List<String> foods = [
-    "Chicken Biryani",
-    "Pizza",
-    "Burger",
-    "Meals",
-    "Shakes",
-    "Cakes",
-    "Fried Rice",
-    "Noodles"
-  ];
-
-  List<String> filteredFoods = [];
-
-  @override
-  void initState() {
-    super.initState();
-    filteredFoods = foods;
-  }
-
-  void searchFood(String query) {
-    final results = foods.where((food) {
-      return food.toLowerCase().contains(query.toLowerCase());
-    }).toList();
-
-    setState(() {
-      filteredFoods = results;
-    });
-  }
-
+class SearchScreen extends StatelessWidget {
+  final VoidCallback goToHome;
+  const SearchScreen({super.key, required this.goToHome});
   @override
   Widget build(BuildContext context) {
+
+    final controller = Provider.of<SearchControllerProvider>(context);
+
     return Scaffold(
+      backgroundColor: const Color(0xffF6F6F6),
+
       appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: goToHome,
+        ),
         title: const Text("Search Food"),
         centerTitle: true,
       ),
+
       body: Column(
         children: [
 
-          // Search Field
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: TextField(
-              onChanged: searchFood,
-              decoration: InputDecoration(
-                hintText: "Search food...",
-                prefixIcon: const Icon(Icons.search),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-            ),
+          SearchBarWidget(
+            onChanged: controller.searchFood,
           ),
 
-          // Search Results
+          FilterChips(),
+
+          const SizedBox(height: 10),
+
           Expanded(
-            child: ListView.builder(
-              itemCount: filteredFoods.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  leading: const Icon(Icons.fastfood),
-                  title: Text(filteredFoods[index]),
-                  trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-                );
-              },
+            child: SearchResults(
+              foods: controller.filteredFoods,
             ),
           )
         ],

@@ -1,8 +1,17 @@
+import 'package:customer_mobile_app/screens/auth/customer/search/search_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'screens/splash/splash_screen.dart';
 
+
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => SearchControllerProvider(),
+      child: const MyApp(),
+    )
+  );
+
 }
 
 class MyApp extends StatelessWidget {
