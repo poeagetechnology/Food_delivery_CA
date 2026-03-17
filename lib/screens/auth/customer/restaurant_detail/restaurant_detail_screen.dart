@@ -8,11 +8,13 @@ class RestaurantDetailScreen extends StatelessWidget {
 
   final String restaurantName;
   final String restaurantImage;
+  final List<Map<String, dynamic>> menu;
 
   const RestaurantDetailScreen({
     super.key,
     required this.restaurantName,
     required this.restaurantImage,
+    required this.menu
   });
 
   @override
@@ -39,7 +41,7 @@ class RestaurantDetailScreen extends StatelessWidget {
 
             /// Menu Section Widget
             MenuSection(
-              menu: controller.menu,
+              menu: menu,
             ),
 
             const SizedBox(height: 20),

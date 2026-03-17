@@ -55,13 +55,66 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
   ];
 
   /// RESTAURANTS
-  final List<Map<String, String>> restaurants = [
-    {"name": "Spicy Hub", "image": "assets/images/spicy.jpg"},
-    {"name": "Food Palace", "image": "assets/images/foodpalace.png"},
-    {"name": "Taste Town", "image": "assets/images/taste.jpg"},
-    {"name": "Taste buds", "image": "assets/images/chick.png"},
-    {"name": "Chatty Chats", "image": "assets/images/pani.png"},
-    {"name": "Frieddis", "image": "assets/images/fried.jpg"},
+  final List<Map<String, dynamic>> restaurants = [
+    {
+      "name": "Spicy Hub",
+      "image": "assets/images/spicy.jpg",
+      "menu": [
+        {
+          "name": "Chicken Biryani",
+          "price": "₹180",
+          "image": "assets/images/biryanii.png"
+        },
+        {
+          "name": "Chicken Bowl",
+          "price": "₹150",
+          "image": "assets/images/chicken.jpg"
+        }
+      ]
+    },
+
+    {
+      "name": "Food Palace",
+      "image": "assets/images/foodpalace.png",
+      "menu": [
+        {
+          "name": "Pizza",
+          "price": "₹250",
+          "image": "assets/images/piz.png"
+        },
+        {
+          "name": "Fresh juice",
+          "price": "₹120",
+          "image": "assets/images/beverage.jpg"
+        }
+      ]
+    },
+    {
+      "name": "Taste Town",
+      "image": "assets/images/taste.jpg",
+      "menu": [
+        {"name": "South India Thali", "price": "₹200", "image": "assets/images/meals.jpg"},
+        {"name": "Rice Bowl", "price": "₹150", "image": "assets/images/chicken.jpg"},
+      ]
+    },
+
+    {
+      "name": "Taste Buds",
+      "image": "assets/images/chick.png",
+      "menu": [
+        {"name": "Chicken 65", "price": "₹300", "image": "assets/images/chillyy.png"},
+        {"name": "Tandoori", "price": "₹280", "image": "assets/images/tandoori.png"},
+      ]
+    },
+
+    {
+      "name": "Chatty Chats",
+      "image": "assets/images/pani.png",
+      "menu": [
+        {"name": "Chole Bhature", "price": "₹50", "image": "assets/images/puri.jpg"},
+        {"name": "Samosa", "price": "₹60", "image": "assets/images/samosa.jpg"},
+      ]
+    },
   ];
 
   @override
@@ -369,6 +422,7 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
                 builder: (context) => RestaurantDetailScreen(
                   restaurantName: restaurant["name"]!,
                   restaurantImage: restaurant["image"]!,
+                  menu: restaurant["menu"] as List<Map<String, dynamic>>,
                 ),
               ),
             );
