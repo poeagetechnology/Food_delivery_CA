@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 
 class ReviewsSection extends StatelessWidget {
 
-  final List<Map<String, String>> reviews;
+  final List<Map<String, dynamic>> reviews;
 
   const ReviewsSection({super.key, required this.reviews});
 
@@ -12,13 +14,13 @@ class ReviewsSection extends StatelessWidget {
     return Column(
       children: [
 
-        const Padding(
+         Padding(
           padding: EdgeInsets.all(16),
           child: Align(
             alignment: Alignment.centerLeft,
             child: Text(
               "Reviews",
-              style: TextStyle(
+              style: GoogleFonts.poppins(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
@@ -28,8 +30,20 @@ class ReviewsSection extends StatelessWidget {
 
         ...reviews.map((review) => ListTile(
           leading: const Icon(Icons.person),
-          title: Text(review["user"]!),
-          subtitle: Text(review["comment"]!),
+          title: Text(
+            review["name"].toString(),
+            style: GoogleFonts.poppins(
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+
+          subtitle: Text(
+            review["comment"].toString(),
+            style: GoogleFonts.poppins(
+              fontSize: 13,
+              color: Colors.black,
+            ),
+          ),
         ))
       ],
     );

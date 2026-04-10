@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class FoodItemCard extends StatelessWidget {
 
   final String name;
   final String price;
   final String image;
+  final dynamic rating;
 
   const FoodItemCard({
     super.key,
     required this.name,
     required this.price,
     required this.image,
+    required this.rating,
   });
 
   @override
@@ -31,7 +34,7 @@ class FoodItemCard extends StatelessWidget {
 
               ClipRRect(
                 borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
-                child: Image.asset(
+                child: Image.network(
                   image,
                   height: 120,
                   width: double.infinity,
@@ -62,7 +65,7 @@ class FoodItemCard extends StatelessWidget {
 
                 Text(
                   name,
-                  style: const TextStyle(
+                  style: GoogleFonts.poppins(
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -71,23 +74,25 @@ class FoodItemCard extends StatelessWidget {
 
                 Text(
                   price,
-                  style: const TextStyle(
+                  style: GoogleFonts.poppins(
                     color: Colors.orange,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
 
                 const SizedBox(height: 5),
-
-                const Row(
+                Row(
                   children: [
-                    Icon(Icons.star, color: Colors.orange, size: 16),
-                    Text("4.8"),
-                    SizedBox(width: 10),
-                    Icon(Icons.timer, size: 16),
-                    Text("20-25 Min")
+                    const Icon(Icons.star, color: Colors.orange, size: 16),
+                    const SizedBox(width: 5),
+                    Text(
+                      rating.toString(),
+                      style: GoogleFonts.poppins(fontSize: 12),
+                    ),
                   ],
-                )
+                ),
+
+
               ],
             ),
           )

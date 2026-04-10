@@ -6,6 +6,7 @@ class FoodDetailScreen extends StatefulWidget {
   final String price;
   final String rating;
   final String image;
+  final String description;
 
   const FoodDetailScreen({
     super.key,
@@ -13,6 +14,7 @@ class FoodDetailScreen extends StatefulWidget {
     required this.price,
     required this.rating,
     required this.image,
+    required this.description,
   });
 
   @override
@@ -48,11 +50,14 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
           ClipRRect(
             borderRadius: const BorderRadius.vertical(
                 bottom: Radius.circular(30)),
-            child: Image.asset(
+            child: Image.network(
               widget.image,
               height: 250,
               width: double.infinity,
               fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace){
+                return const Icon(Icons.broken_image, size:50);
+              },
             ),
           ),
 
@@ -109,9 +114,9 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
 
                   /// DESCRIPTION
                   Text(
-                    "Delicious and freshly prepared food made with high quality ingredients. Perfect for your cravings!",
+                    widget.description,
                     style: GoogleFonts.poppins(
-                      color: Colors.grey[600],
+                      color: Colors.black,
                     ),
                   ),
 
@@ -219,6 +224,7 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
                       ),
                     ),
                   ),
+
                 ],
               ),
             ),

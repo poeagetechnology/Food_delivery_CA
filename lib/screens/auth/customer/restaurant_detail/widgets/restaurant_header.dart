@@ -16,7 +16,7 @@ class RestaurantHeader extends StatelessWidget {
     return Column(
       children: [
 
-        Image.asset(
+        Image.network(
           image,
           height: 200,
           width: double.infinity,

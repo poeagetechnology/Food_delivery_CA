@@ -36,6 +36,8 @@ class MenuSection extends StatelessWidget {
             name: item["name"],
             price: item["price"],
             image: item["image"],
+            rating: item["rating"],
+
           );
         },
       ),
