@@ -1,9 +1,11 @@
+import 'package:customer_mobile_app/screens/auth/customer/cart/cart_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../restaurant_detail/restaurant_detail_screen.dart';
 import '../search/search_screen.dart';
 import 'food_detail_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '../cart/cart_screen.dart';
 
 class CustomerHomeScreen extends StatefulWidget {
   const CustomerHomeScreen({super.key});
@@ -56,7 +58,7 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
           });
         },
       ),
-      const Center(child: Text("Cart Screen")),
+      const CartScreen(),
       const Center(child: Text("Orders Screen")),
       const Center(child: Text("Profile Screen")),
     ];

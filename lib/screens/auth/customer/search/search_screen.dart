@@ -13,6 +13,10 @@ class SearchScreen extends StatelessWidget {
 
     final controller = Provider.of<SearchControllerProvider>(context);
 
+    if (controller.allFoods.isEmpty){
+      controller.fetchAllFoods();
+    }
+
     return Scaffold(
       backgroundColor: const Color(0xffF6F6F6),
 

@@ -3,22 +3,27 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'screens/splash/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
-
+import 'package:customer_mobile_app/screens/auth/customer/cart/cart_controller.dart';
 
 void main()async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
-runApp(
-  ChangeNotifierProvider(create: (context) => SearchControllerProvider(),
-  child: const MyApp(),
-  ),
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => SearchControllerProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => CartController(), // 🔥 ADD THIS
+        ),
+      ],
+      child: const MyApp(),
+    ),
   );
 
 }
-
-
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 

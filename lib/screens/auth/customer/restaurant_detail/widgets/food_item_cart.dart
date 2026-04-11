@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:customer_mobile_app/screens/auth/customer/home/food_detail_screen.dart';
 class FoodItemCard extends StatelessWidget {
 
   final String name;
@@ -19,84 +19,101 @@ class FoodItemCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-      ),
-
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-
-          Stack(
-            children: [
-
-              ClipRRect(
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
-                child: Image.network(
-                  image,
-                  height: 120,
-                  width: double.infinity,
-                  fit: BoxFit.cover,
-                ),
-              ),
-
-              Positioned(
-                right: 10,
-                top: 10,
-                child: CircleAvatar(
-                  backgroundColor: Colors.white,
-                  child: Icon(
-                    Icons.favorite_border,
-                    color: Colors.orange,
-                    size: 18,
-                  ),
-                ),
-              ),
-            ],
+    return GestureDetector( // ✅ MOVE HERE (TOP LEVEL)
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => FoodDetailScreen(
+              name: name,
+              price: price,
+              image: image,
+              rating: rating.toString(),
+              description: "", // ⚠️ add if required
+            ),
           ),
+        );
+      },
 
-          Padding(
-            padding: const EdgeInsets.all(10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+        ),
+
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+
+            Stack(
               children: [
 
-                Text(
-                  name,
-                  style: GoogleFonts.poppins(
-                    fontWeight: FontWeight.w600,
+                ClipRRect(
+                  borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+                  child: Image.network(
+                    image,
+                    height: 120,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
                   ),
                 ),
 
-                const SizedBox(height: 5),
-
-                Text(
-                  price,
-                  style: GoogleFonts.poppins(
-                    color: Colors.orange,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-
-                const SizedBox(height: 5),
-                Row(
-                  children: [
-                    const Icon(Icons.star, color: Colors.orange, size: 16),
-                    const SizedBox(width: 5),
-                    Text(
-                      rating.toString(),
-                      style: GoogleFonts.poppins(fontSize: 12),
+                Positioned(
+                  right: 10,
+                  top: 10,
+                  child: CircleAvatar(
+                    backgroundColor: Colors.white,
+                    child: Icon(
+                      Icons.favorite_border,
+                      color: Colors.orange,
+                      size: 18,
                     ),
-                  ],
+                  ),
                 ),
-
-
               ],
             ),
-          )
-        ],
+
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+
+                  Text(
+                    name,
+                    style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+
+                  const SizedBox(height: 5),
+
+                  Text(
+                    price,
+                    style: GoogleFonts.poppins(
+                      color: Colors.orange,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+
+                  const SizedBox(height: 5),
+
+                  Row(
+                    children: [
+                      const Icon(Icons.star, color: Colors.orange, size: 16),
+                      const SizedBox(width: 5),
+                      Text(
+                        rating.toString(),
+                        style: GoogleFonts.poppins(fontSize: 12),
+                      ),
+                    ],
+                  ),
+
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
